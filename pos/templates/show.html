@@ -1,0 +1,50 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Data Transaksi</title>  
+     {% load staticfiles %}  
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>  
+</head>  
+<body>  
+  
+  <div class="content", style="overflow-x:auto;">
+  <table id="poser">  
+      <h3>Data Transaksi</h3>
+  <tr> 
+    <th>id</th>
+    <th>nomor</th> 
+    <th>tanggal</th>  
+    <th>karyawan</th>  
+    <th>customer</th> 
+    <th>meja</th>
+    <th>status</th>
+    <th>harga</th>
+  
+  </tr>    
+  <tbody>  
+  {% for Order in orders %}  
+  <tr>  
+    <td>{{ Order.id }}</td>
+    <td>{{ Order.nomor }}</td>
+    <td>{{ Order.timestamp }}</td>
+    <td>{{ Order.karyawan }}</td>
+    <td>{{ Order.namapemesan }}</td>
+    <td>{{ Order.meja }}</td>
+    <td>{{ Order.status }}</td>
+    <td>{{ Order.total_price }}</td>
+   
+  
+   
+    <td>  
+        <a href="/edit/{{ Order.id }}">Edit</a>  
+        <a href="/delete/{{ Order.id }}">Delete</a>  
+    </td>  
+  </tr>  
+  {% endfor %}  
+  </tbody>  
+  </table>
+  </div>  
+  <center><a href="{% url 'billing' %}" class="btn-primary">Add Transaksi Baru</a></center>
+</body>  
+</html> 

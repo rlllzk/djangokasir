@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> {{karyawan.tugas}}-POS RESTORAN </title>
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<td>  
+    <a href="/show">DAFTAR PESANAN</a> | 
+    <a href="/pshow">DAFTAR MENU</a>  |
+    <a href="{% url 'logout' %}">logout</a>
+</td>  
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5>MODE: {{ karyawan.tugas }} | {{ karyawan.name }}</h5>
+        <br>
+        <form method="POST" class="post-form" action="/ooder">  
+        {% csrf_token %} 
+        <br>
+        <label class="col-sm-2 col-form-label">customer:</label>     
+          <input type="text" name="namapemesan" id="id_namapemesan" required maxlength="20" value=""/> 
+        </br>
+        <br>
+        <label class="col-sm-2 col-form-label">meja:</label>     
+          <input type="text" name="meja" id="id_meja" required maxlength="20" value=""/>
+        </br>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h5>Add Menu:</h5>
+      </div>
+      <div class="card-body">
+        {% for product in products %}
+          <a href="#" onclick="addItem({{ product.id }}, '{{ product.name }}', {{ product.price }})" class="btn btn-outline-secondary">
+            {{ product.name }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title"><strong>Jumlah Pesanan</strong></h4>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <td><strong>Item</strong></td>
+                        <td class="text-right"><strong>Harga</strong></td>
+                      </tr>
+                    </thead>
+                    <tbody id="summary-table-body">
+                      <tr id="total-tr">
+                        <td class="thick-line text-right"><strong>Total: </strong></td>
+                        <td class="thick-line text-right"><strong>Rp0 </strong></td></tr>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group special" role="group">
+          {% csrf_token %}
+          <button type="button" class="btn btn-success" onclick="postOrder('{% url 'order' %}', '{{ karyawan.identity }}','{{ meja.id }}' )">Simpan</button>
+          <button type="button" class="btn" onclick="clearAllItems()">Hapus</button>
+          <button type="button" class="btn btn-danger" onclick="location.href='{% url 'billing' %}'">batal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
