@@ -13,8 +13,9 @@ def billing(request):
         nik = request.POST.get('karyawanID', None)
         karyawan = Karyawan.objects.get(pk=nik)
         products = list(Product.objects.filter(stok='READY'))
-  
-        return render(request, 'billing_details.html', {'karyawan': karyawan, 'products': products})
+        
+    
+        return render(request, 'billing_details.html', {'karyawan': karyawan, 'products': products, })
 
 def order(request):
     if request.method == 'POST':
@@ -22,14 +23,26 @@ def order(request):
         if data is None:
             raise AttributeError
         print(data)
-        karyawan = Karyawan.objects.get(pk=data['karyawan_id'])
-        order = Order.objects.create(
-                                    karyawan=karyawan,
+        karyawan = Karyawan.objects.get(pk=data['karyawan_id']) 
+      
+        
+        
+        order = Order.objects.create(    
+                                    karyawan=karyawan,      
+                                    nomor=data['nomorid'],
+                                    namapemesan=data['customerid'],
+                                    meja=data['mejaid'],
+                                    status=data['statusid'],                    
                                     total_price=data['total_price'],
-                                    success=False)
+                                    success=False
+                                    )
         for product_id in data['product_ids']:
             OrderItem(product=Product.objects.get(pk=product_id), order=order).save()
-            karyawan.save()
+    
+           
+     
+            # karyawan.save()
+        
 
             order.success = True
         order.save()

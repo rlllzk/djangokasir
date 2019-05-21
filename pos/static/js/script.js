@@ -1,6 +1,7 @@
 var product_ids = [];
 var total_price = 0;
 
+
 function addItem(item_id, item_name, item_price) {
   var tableBody = document.getElementById('summary-table-body');
   var tr = document.createElement('tr');
@@ -63,8 +64,17 @@ function getTotal(){
 }
 
 function postOrder(url, nik) {
+  var nomorID = document.getElementById("nomorID").value;
+  var customerID = document.getElementById("customerID").value;
+  var mejaID = document.getElementById("mejaID").value;
+  var statusID = document.getElementById("statusID").value;
+
   data = {
     'karyawan_id' : nik,
+    'nomorid'     : nomorID,
+    'customerid'  : customerID,
+    'mejaid'      : mejaID,
+    'statusid'    : statusID,
     'product_ids' : product_ids,
     'total_price' : total_price,
   };

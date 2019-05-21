@@ -36,7 +36,7 @@ class Order(models.Model):
     success = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now=True)
     namapemesan = models.CharField(max_length=30)
-    meja = models.CharField(max_length=10) 
+    meja = models.CharField(max_length=3) 
     STATPS = (
         ('AKTIF','aktif'),
         ('NONAKTIF','nonaktif')

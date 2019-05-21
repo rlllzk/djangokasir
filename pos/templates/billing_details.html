@@ -7,6 +7,7 @@
 {% load static %}
 
 {% block content %}
+<form action="#" method="post"> {% csrf_token %}
 <td>  
     <a href="/show">DAFTAR PESANAN</a> | 
     <a href="/pshow">DAFTAR MENU</a>  |
@@ -17,17 +18,25 @@
     <div class="card">
       <div class="card-body">
         <h5>MODE: {{ karyawan.tugas }} | {{ karyawan.name }}</h5>
-        <br>
-        <form method="POST" class="post-form" action="/ooder">  
-        {% csrf_token %} 
-        <br>
-        <label class="col-sm-2 col-form-label">customer:</label>     
-          <input type="text" name="namapemesan" id="id_namapemesan" required maxlength="20" value=""/> 
-        </br>
-        <br>
-        <label class="col-sm-2 col-form-label">meja:</label>     
-          <input type="text" name="meja" id="id_meja" required maxlength="20" value=""/>
-        </br>
+        <div class="form-group">
+            <label for="nomor">Nomor:</label>
+            <input type="text" class="form-control" id="nomorID">
+          </div>
+        <div class="form-group">
+            <label for="customer">Customer:</label>
+            <input type="text" class="form-control" id="customerID">
+          </div>
+        <div class="form-group">
+            <label for="meja">Meja:</label>
+            <input type="text" class="form-control" id="mejaID">
+          </div>
+          <div class="form-group">
+              <label for="Status">Status</label>
+              <select class="form-control" id="statusID">
+                <option>AKTIF</option>
+                <option>NONAKTIF</option>
+              </select>
+            </div>
       </div>
     </div>
     <div class="card">
@@ -50,7 +59,7 @@
           <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h4 class="panel-title"><strong>Jumlah Pesanan</strong></h4>
+                <h4 class="panel-title"><strong>Total Pesanan</strong></h4>
               </div>
               <div class="panel-body">
                 <div class="table-responsive">
@@ -75,7 +84,7 @@
         </div>
         <div class="btn-group special" role="group">
           {% csrf_token %}
-          <button type="button" class="btn btn-success" onclick="postOrder('{% url 'order' %}', '{{ karyawan.identity }}','{{ meja.id }}' )">Simpan</button>
+          <button type="button" class="btn btn-success" onclick="postOrder('{% url 'order' %}', '{{ karyawan.identity }}','Total')">Simpan</button>
           <button type="button" class="btn" onclick="clearAllItems()">Hapus</button>
           <button type="button" class="btn btn-danger" onclick="location.href='{% url 'billing' %}'">batal</button>
         </div>
@@ -83,6 +92,6 @@
     </div>
   </div>
 </div>
-
+</form>
 <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
