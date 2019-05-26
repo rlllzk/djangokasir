@@ -2,35 +2,29 @@ from django.shortcuts import render, redirect
 import json
 from rest_framework import viewsets
 from .serializers import ProductSerializer
-from .models import Product, Karyawan, Order, OrderItem
-from .forms import OrderForm, ProductForm
+from .models import Product, Order, OrderItem
+from .forms import OrderForm, ProductForm, OrderItemForm
+from django.contrib.auth.decorators import login_required
 
 
-def billing(request):
-    if request.method == 'GET':
-        return render(request, 'billing.html')
-    else:
-        nik = request.POST.get('karyawanID', None)
-        karyawan = Karyawan.objects.get(pk=nik)
-        products = list(Product.objects.filter(stok='READY'))
-        
-    
-        return render(request, 'billing_details.html', {'karyawan': karyawan, 'products': products, })
-
+@login_required
 def order(request):
+    # nik = request.POST.get('karyawanID', None)
+    # karyawan = Karyawan.objects.get(pk=nik)
+    form = OrderItemForm()
+    products = list(Product.objects.filter(stok='1'))
+    if request.method == 'GET':
+        return render(request, 'pesanan.html', {'products': products, 'form':form })
+        
     if request.method == 'POST':
         data = json.loads(request.POST.get('data', None))
         if data is None:
             raise AttributeError
         print(data)
-        karyawan = Karyawan.objects.get(pk=data['karyawan_id']) 
-      
-        
-        
+  
         order = Order.objects.create(    
-                                    karyawan=karyawan,      
-                                    nomor=data['nomorid'],
-                                    namapemesan=data['customerid'],
+                                    operator=data['userid'],      
+                                    customer=data['customerid'],
                                     meja=data['mejaid'],
                                     status=data['statusid'],                    
                                     total_price=data['total_price'],
@@ -38,82 +32,103 @@ def order(request):
                                     )
         for product_id in data['product_ids']:
             OrderItem(product=Product.objects.get(pk=product_id), order=order).save()
-    
-           
-     
-            # karyawan.save()
-        
-
+   
             order.success = True
         order.save()
         return render(request, 'order.html', {'success' : order.success})
 #=============crudtrasnksi
+@login_required
 def show(request):  
     orders = Order.objects.all()  
     return render(request,"show.html",{'orders':orders})
-
+@login_required
 def edit(request, id):  
-    order = Order.objects.get(id=id)  
+    order = Order.objects.get(id=id) 
     return render(request,'edit.html', {'order':order})
-
+@login_required
 def update(request, id):  
     order = Order.objects.get(id=id)  
     form = OrderForm(request.POST, instance = order)  
     if form.is_valid():  
         form.save()  
-        return redirect("/show")  
+        return redirect("show")  
     return render(request, 'edit.html', {'order': order})  
+@login_required
 def destroy(request, id):  
     order = Order.objects.get(id=id)  
     order.delete()  
-    return redirect("/show")  
-def ooder(request):  
-    if request.method == "POST":  
-        form = OrderForm(request.POST)  
-        if form.is_valid():  
-            try:  
-                form.save()  
-                return redirect('/show')  
-            except:  
-                pass  
-    else:  
-        form = OrderForm()  
-    return render(request,'ooder.html',{'form':form}) 
+    return redirect("show")  
 
 #==========api-
-
 class ProductViewSet(viewsets.ModelViewSet):
     queryset =  Product.objects.all()
     serializer_class = ProductSerializer
 
 #=========productcrud
+@login_required
 def pshow(request):  
     Products = Product.objects.all()  
     return render(request,"pshow.html",{'Products':Products})
-
+@login_required
 def pedit(request, id):  
-    produk= Product.objects.get(id=id)  
+    produk= Product.objects.get(id=id) 
     return render(request,'pedit.html', {'produk':produk})
-
+@login_required
 def pupdate(request, id):  
     produk = Product.objects.get(id=id)  
     form = ProductForm(request.POST, instance = produk)  
     if form.is_valid():  
         form.save()  
-        return redirect("/pshow")  
+        return redirect("pshow")  
     return render(request, 'pedit.html', {'produk': produk})
-
+@login_required
 def pdestroy(request, id):  
     produk = Product.objects.get(id=id)  
     produk.delete()  
-    return redirect("/pshow")  
+    return redirect("pshow")
+@login_required  
 def pooder(request):  
     if request.method == "POST":  
         form = ProductForm(request.POST)  
         if form.is_valid():  
             try:  
                 form.save()  
-                return redirect('/pshow')  
+                return redirect('pshow')  
+            except:  
+                pass  
+    else:  
+        form = ProductForm()  
+    return render(request,'pooder.html',{'form':form}) 
+# ===========crud order item
+@login_required
+def pshow(request):  
+    Products = Product.objects.all()  
+    return render(request,"pshow.html",{'Products':Products})
+@login_required
+def pedit(request, id):  
+    produk= Product.objects.get(id=id) 
+    return render(request,'pedit.html', {'produk':produk})
+@login_required
+def pupdate(request, id):  
+    produk = Product.objects.get(id=id)  
+    form = ProductForm(request.POST, instance = produk)  
+    if form.is_valid():  
+        form.save()  
+        return redirect("pshow")  
+    return render(request, 'pedit.html', {'produk': produk})
+@login_required
+def pdestroy(request, id):  
+    produk = Product.objects.get(id=id)  
+    produk.delete()  
+    return redirect("pshow")
+@login_required  
+def pooder(request):  
+    if request.method == "POST":  
+        form = ProductForm(request.POST)  
+        if form.is_valid():  
+            try:  
+                form.save()  
+                return redirect('pshow')  
             except:  
                 pass  
     else:  

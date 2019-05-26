@@ -1,30 +1,24 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>Index</title>  
-    {% load static %}  
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>  
-</head>  
-<body>  
-<form method="POST" class="post-form" action="/update/{{order.id}}">  
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form method="POST" class="post-form" action="update/{{order.id}}">  
         {% csrf_token %}  
 <div class="coninput"> 
   <br>     
     <label class="col-sm-1 col-form-label"></label>     
-    <h3>Update Details</h3>  
+    <h4>Update Details</h4>  
     <label class="col-sm-2 col-form-label">nomor:</label>     
-    <input type="text" name="nomor" id="id_nomor" required maxlength="20" value="{{ order.nomor }}"/>
-    <label class="col-sm-2 col-form-label">karyawan:</label>     
-    <input type="text" name="karyawan" id="id_karyawan" required maxlength="20" value="{{ order.karyawan }}"/>
-    <label class="col-sm-2 col-form-label">namapemesan:</label>     
-    <input type="text" name="namapemesan" id="id_namapemesan" required maxlength="20" value="{{ order.namapemesan }}"/>
+    <input type="text" name="nomor" id="id_nomor" readonly value="{{ order.nomor }}"/>
+    <label class="col-sm-2 col-form-label">op:</label>     
+    <input type="text" name="operator" id="id_operator"  readonly value="{{ order.operator }}"/>
+    <label class="col-sm-2 col-form-label">customer:</label>     
+    <input type="text" name="customer" id="id_customer" required maxlength="20" value="{{ order.customer }}"/>
     <label class="col-sm-2 col-form-label">meja:</label>     
     <input type="text" name="meja" id="id_meja" required maxlength="20" value="{{ order.meja }}"/>
-    <label class="col-sm-2 col-form-label">timestamp:</label>     
+    <label class="col-sm-2 col-form-label">waktu:</label>     
     <input type="text" name="timestamp" id="id_timestamp" required maxlength="50" value="{{ order.timestamp }}"/>
-    <label class="col-sm-2 col-form-label">total_price:</label>     
-    <input type="text" name="total_price" id="id_total_price" required maxlength="20" value="{{ order.total_price }}"/>
+    <label class="col-sm-2 col-form-label">total:</label>     
+    <input type="text" name="total_price" id="id_total_price" readonly value="{{ order.total_price }}"/>
     <label class="col-sm-2 col-form-label">status:</label>     
     <input type="text" name="status" id="id_status" required maxlength="20" value="{{ order.status }}"/>
     <label class="col-sm-2 col-form-label">success:</label>     
@@ -32,5 +26,4 @@
     <button type="submit" class="btn-primary">Update</button>  
   </div>  
 </form>  
-</body>  
-</html>  
+{% endblock %}

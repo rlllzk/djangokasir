@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Product, Order, OrderItem, Karyawan
+from .models import Product, Order, OrderItem
 
 
-admin.site.site_header = 'POS Administration'
-admin.site.site_title = 'POS Administration'
+admin.site.site_header = 'POS SYSTEM'
+admin.site.site_title = 'POS SYSTEM'
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'price','stok')
@@ -14,17 +14,11 @@ class KaryawanAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id','nomor','karyawan','total_price','success','timestamp', 'meja','namapemesan','status')
-    list_filter = ('karyawan', 'timestamp')
-
+    list_display = ('id','nomor','operator','total_price','success','timestamp', 'meja','customer','status')
 
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('order', 'timestamp', 'product')
-    list_filter = ('order', 'timestamp')
 
-
-
-admin.site.register(Karyawan, KaryawanAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)

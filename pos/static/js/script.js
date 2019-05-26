@@ -64,14 +64,13 @@ function getTotal(){
 }
 
 function postOrder(url, nik) {
-  var nomorID = document.getElementById("nomorID").value;
   var customerID = document.getElementById("customerID").value;
   var mejaID = document.getElementById("mejaID").value;
-  var statusID = document.getElementById("statusID").value;
-
+  var userID =  document.getElementById("userID").value;
+  var statusID = 1;
+ 
   data = {
-    'karyawan_id' : nik,
-    'nomorid'     : nomorID,
+    'userid'      : userID,
     'customerid'  : customerID,
     'mejaid'      : mejaID,
     'statusid'    : statusID,

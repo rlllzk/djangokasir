@@ -1,22 +1,13 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>Data Menu</title>  
-     {% load staticfiles %}  
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>  
-</head>  
-<body>  
-  
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
   <div class="content", style="overflow-x:auto;">
   <table id="poser">  
-      <h3>Data Transaksi</h3>
+      <h4>Data Transaksi</h4>
   <tr> 
     <th>name</th>
     <th>harga</th> 
     <th>stok</th>  
-
-  
   </tr>    
   <tbody>  
   {% for Product in Products %}  
@@ -24,18 +15,14 @@
     <td>{{ Product.name }}</td>
     <td>{{ Product.price }}</td>
     <td>{{ Product.stok }}</td>
- 
-   
-     
     <td>  
-        <a href="/pedit/{{ Product.id }}">Edit</a>  
-        <a href="/pdelete/{{ Product.id }}">Delete</a>  
+        <a href="pedit/{{ Product.id }}">[E]</a>  
+        <a href="pdelete/{{ Product.id }}">[D]</a>  
     </td>  
   </tr>  
   {% endfor %}  
   </tbody>  
   </table>
   </div>  
-  <center><a href="{% url 'pooder' %}" class="btn-primary">Add Menu Baru</a></center>
-</body>  
-</html> 
+  <a href="{% url 'pooder' %}" class="btn-primary">Add Menu</a>
+{% endblock %}

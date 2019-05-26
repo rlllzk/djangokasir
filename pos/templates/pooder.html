@@ -1,13 +1,7 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-    <meta charset="UTF-8">  
-    <title>Index</title>  
-    {% load staticfiles %}  
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>  
-</head>  
-<body>  
-<form method="POST" class="post-form" action="/pooder">  
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}  
+<form method="POST" class="post-form" action="pooder">  
         {% csrf_token %}  
 <div class="coninput">  
 <br>    
@@ -21,6 +15,5 @@
       {{ form.stok }}  
     <button type="submit" class="btn-primary">Submit</button>    
   </div>   
-</form>  
-</body>  
-</html>  
+</form> 
+{% endblock %} 
