@@ -7,10 +7,9 @@ from .forms import OrderForm, ProductForm, OrderItemForm
 from django.contrib.auth.decorators import login_required
 
 
+
 @login_required
 def order(request):
-    # nik = request.POST.get('karyawanID', None)
-    # karyawan = Karyawan.objects.get(pk=nik)
     form = OrderItemForm()
     products = list(Product.objects.filter(stok='1'))
     if request.method == 'GET':
@@ -36,7 +35,7 @@ def order(request):
             order.success = True
         order.save()
         return render(request, 'order.html', {'success' : order.success})
-#=============crudtrasnksi
+
 @login_required
 def show(request):  
     orders = Order.objects.all()  
@@ -59,47 +58,12 @@ def destroy(request, id):
     order.delete()  
     return redirect("show")  
 
-#==========api-
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset =  Product.objects.all()
     serializer_class = ProductSerializer
 
-#=========productcrud
-@login_required
-def pshow(request):  
-    Products = Product.objects.all()  
-    return render(request,"pshow.html",{'Products':Products})
-@login_required
-def pedit(request, id):  
-    produk= Product.objects.get(id=id) 
-    return render(request,'pedit.html', {'produk':produk})
-@login_required
-def pupdate(request, id):  
-    produk = Product.objects.get(id=id)  
-    form = ProductForm(request.POST, instance = produk)  
-    if form.is_valid():  
-        form.save()  
-        return redirect("pshow")  
-    return render(request, 'pedit.html', {'produk': produk})
-@login_required
-def pdestroy(request, id):  
-    produk = Product.objects.get(id=id)  
-    produk.delete()  
-    return redirect("pshow")
-@login_required  
-def pooder(request):  
-    if request.method == "POST":  
-        form = ProductForm(request.POST)  
-        if form.is_valid():  
-            try:  
-                form.save()  
-                return redirect('pshow')  
-            except:  
-                pass  
-    else:  
-        form = ProductForm()  
-    return render(request,'pooder.html',{'form':form}) 
-# ===========crud order item
+
 @login_required
 def pshow(request):  
     Products = Product.objects.all()  

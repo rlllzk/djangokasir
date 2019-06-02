@@ -18,9 +18,7 @@ class Order(models.Model):
         last_invoice = Order.objects.all().order_by('nomor').last()
         if not last_invoice:
             return 'ERP0001'
-        nomor = last_invoice.nomor
-        # value = datetime.date.today()
-        # today = timezone.now().date()  
+        nomor = last_invoice.nomor 
         invoice_int = int(nomor.split('ERP')[-1])
         width = 4
         new_invoice_int = invoice_int + 1

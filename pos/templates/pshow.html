@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <div class="content", style="overflow-x:auto;">
-  <table id="poser">  
-      <h4>Data Transaksi</h4>
+<table class="table">
+  <thead>
   <tr> 
-    <th>name</th>
-    <th>harga</th> 
-    <th>stok</th>  
-  </tr>    
+    <th scope="col">name</th>
+    <th scope="col">harga</th> 
+    <th scope="col">stok</th>  
+  </tr>  
+  </thead>  
   <tbody>  
   {% for Product in Products %}  
   <tr>  
@@ -23,6 +23,5 @@
   {% endfor %}  
   </tbody>  
   </table>
-  </div>  
-  <a href="{% url 'pooder' %}" class="btn-primary">Add Menu</a>
+  <a href="{% url 'pooder' %}" class="btn btn-primary">Add Menu</a>
 {% endblock %}

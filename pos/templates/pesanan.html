@@ -68,7 +68,7 @@
         <div class="btn-group special" role="group">
           {% csrf_token %}
           <button type="button" class="btn btn-success" onclick="postOrder('{% url 'order' %}')">Simpan</button>
-          <button type="button" class="btn" onclick="clearAllItems()">Hapus</button>
+          <button type="button" class="btn" onclick="clearAllItems()">Bersih</button>
           <button type="button" class="btn btn-danger" onclick="location.href='{% url 'pesanan' %}'">batal</button>
         </div>
       </div>

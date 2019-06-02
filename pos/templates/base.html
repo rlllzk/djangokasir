@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" ></link>
-    {% block title %}<title>POS RESTO</title>{% endblock %}
-  </head>
+	{% block title %}<title>POS RESTO</title>{% endblock %}
+	</head>
   <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="#">RESTO KITA</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-item nav-link" href="pesanan">Pesanan</a>
               <a class="nav-item nav-link" href="show">List Pesanan</a>
@@ -20,11 +21,12 @@
               <a class="nav-item nav-link disabled" href="#">Disabled</a>
               <a class="nav-item nav-link" href="/logout/">Logout</a>
             </div>
-          </div>
-        </nav>
+		</div>
+    </nav>
     <div class="container-fluid">
       {% block content %} {% endblock %}
     </div>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  </body>
+	<script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	</body>
 </html>

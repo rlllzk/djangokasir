@@ -1,29 +1,45 @@
-{% extends 'base.html' %}
+
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" ></link>
 <form method="POST" class="post-form" action="update/{{order.id}}">  
         {% csrf_token %}  
-<div class="coninput"> 
-  <br>     
-    <label class="col-sm-1 col-form-label"></label>     
-    <h4>Update Details</h4>  
-    <label class="col-sm-2 col-form-label">nomor:</label>     
-    <input type="text" name="nomor" id="id_nomor" readonly value="{{ order.nomor }}"/>
-    <label class="col-sm-2 col-form-label">op:</label>     
-    <input type="text" name="operator" id="id_operator"  readonly value="{{ order.operator }}"/>
-    <label class="col-sm-2 col-form-label">customer:</label>     
-    <input type="text" name="customer" id="id_customer" required maxlength="20" value="{{ order.customer }}"/>
-    <label class="col-sm-2 col-form-label">meja:</label>     
-    <input type="text" name="meja" id="id_meja" required maxlength="20" value="{{ order.meja }}"/>
-    <label class="col-sm-2 col-form-label">waktu:</label>     
-    <input type="text" name="timestamp" id="id_timestamp" required maxlength="50" value="{{ order.timestamp }}"/>
-    <label class="col-sm-2 col-form-label">total:</label>     
-    <input type="text" name="total_price" id="id_total_price" readonly value="{{ order.total_price }}"/>
-    <label class="col-sm-2 col-form-label">status:</label>     
-    <input type="text" name="status" id="id_status" required maxlength="20" value="{{ order.status }}"/>
-    <label class="col-sm-2 col-form-label">success:</label>     
-    <input type="text" name="success" id="id_success" required maxlength="20" value="{{ order.success }}"/>
-    <button type="submit" class="btn-primary">Update</button>  
-  </div>  
+  <br>
+  <div class="card-body">
+    <h4>Update Details</h4>
+    <div class="form-group">
+      <label class="control-label col-sm-2">nomor</label>     
+      <input type="text" name="nomor" id="id_nomor" readonly value="{{ order.nomor }}"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">op</label>     
+      <input type="text" name="operator" id="id_operator"  readonly value="{{ order.operator }}"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">customer</label>     
+      <input type="text" name="customer" id="id_customer"  value="{{ order.customer }}"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">meja</label>     
+      <input type="text" name="meja" id="id_meja"  value="{{ order.meja }}"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">waktu</label>     
+      <input type="text" name="timestamp" id="id_timestamp" value="{{ order.timestamp }}"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">total</label>     
+      <input type="text" name="total_price" id="id_total_price" readonly value="{{ order.total_price }}"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">status</label>     
+      <input type="text" name="status" id="id_status"  value="{{ order.status }}"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">success</label>     
+      <input type="text" name="success" id="id_success"  value="{{ order.success }}"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button> 
+  </div> 
 </form>  
 {% endblock %}

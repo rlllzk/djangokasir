@@ -1,22 +1,22 @@
 {% extends 'base.html' %} 
 {% block content %} 
 {% load staticfiles %}
-  <div class="content", style="overflow-x:auto;">
-  <table id="poser">  
-      <h4>List Pesanan</h4>
-  <tr> 
-    <th>no</th> 
-    <th>tanggal</th>  
-    <th>op</th>  
-    <th>cust</th> 
-    <th>meja</th>
-    <th>status</th>
-    <th>harga</th>
-  </tr>    
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">no</th> 
+      <th scope="col">tanggal</th>  
+      <th scope="col">op</th>  
+      <th scope="col">cust</th> 
+      <th scope="col">meja</th>
+      <th scope="col">status</th>
+      <th scope="col">Total</th>
+    </tr>  
+  </thead>  
   <tbody>  
   {% for Order in orders %}  
   <tr>  
-    <td>{{ Order.nomor }}</td>
+    <th scope="row">{{ Order.nomor }}</th>
     <td>{{ Order.timestamp }}</td>
     <td>{{ Order.operator }}</td>
     <td>{{ Order.customer }}</td>
@@ -31,5 +31,4 @@
   {% endfor %}  
   </tbody>  
   </table>
-  </div>  
   {% endblock %}

@@ -1,18 +1,27 @@
-{% extends 'base.html' %}
+
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" ></link>
 <form method="POST" class="post-form" action="pupdate/{{produk.id}}">  
 {% csrf_token %}          
-<div class="coninput"> 
-  <br>     
-    <label class="col-sm-1 col-form-label"></label>     
-    <h3>Update Details</h3>  
-    <label class="col-sm-2 col-form-label">name:</label>     
-    <input type="text" name="name" id="id_name" required maxlength="20" value="{{ produk.name }}"/> 
-    <label class="col-sm-2 col-form-label">harga:</label>     
-    <input type="text" name="price" id="id_price" required maxlength="20" value="{{ produk.price }}"/>
-    <label class="col-sm-2 col-form-label">stok:</label>     
-    <input type="text" name="stok" id="id_stok" required maxlength="20" value="{{produk.stok }}"/> 
-    <button type="submit" class="btn-primary">Update</button>  
-  </div> 
+<div class="card">
+  <div class="card-header">
+    <h5>Update Menu</h5>
+  </div>
+  <div class="card-body">      
+    <div class="form-group"> 
+      <label class="col-sm-2 col-form-label">name</label>     
+      <input type="text" name="name" id="id_name" value="{{ produk.name }}"/>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 col-form-label">harga</label>     
+      <input type="text" name="price" id="id_price" value="{{ produk.price }}"/>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 col-form-label">stok</label>     
+      <input type="text" name="stok" id="id_stok" value="{{produk.stok }}"/> 
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>  
+  </div>
+</div> 
 {% endblock %} 
